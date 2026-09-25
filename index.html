@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Roame — Ride-Sharing App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav">
+    <div class="brand"><span class="brand-mark">R</span>Roame</div>
+    <nav class="nav-links">
+      <a href="#demo">Live demo</a>
+      <a href="#features">Features</a>
+      <a href="#flow">How it works</a>
+      <a href="#stack">Tech stack</a>
+    </nav>
+    <button class="nav-cta" onclick="document.getElementById('demo').scrollIntoView({behavior:'smooth'})">Try the demo</button>
+  </div>
+</header>
+
+<section class="hero" id="demo">
+  <div class="wrap hero-grid">
+    <div class="eyebrow-free">
+      <h1>A ride, booked and tracked, in one clean flow.</h1>
+      <p class="lede">Roame connects passengers with nearby drivers — instant fare estimates, live location tracking, digital payment and a two-way rating system. Everything below is a fully working simulation, ready to click through.</p>
+      <div class="hero-stats">
+        <div class="stat"><b>4.9★</b><span>Avg. driver rating</span></div>
+        <div class="stat"><b>3 min</b><span>Avg. match time</span></div>
+        <div class="stat"><b>12k+</b><span>Rides simulated</span></div>
+      </div>
+      <div class="hero-actions">
+        <button class="btn-primary" onclick="resetDemo()">Restart demo</button>
+        <button class="btn-ghost" onclick="document.getElementById('features').scrollIntoView({behavior:'smooth'})">See features</button>
+      </div>
+    </div>
+
+    <div class="phone-stage">
+      <div class="phone">
+        <div class="notch"></div>
+        <div class="phone-screen">
+          <div class="app-topbar">
+            <span><span class="dot"></span>Roame</span>
+            <span id="clock">9:41</span>
+          </div>
+
+          <div class="app-body">
+
+            <div class="screen active" data-screen="home">
+              <div class="section-label">Plan your ride</div>
+              <div class="field-group">
+                <div class="field"><span class="pip start"></span><input id="pickup" value="MG Road Metro Station"></div>
+                <div class="field"><span class="pip end"></span><input id="drop" value="Terminal 2, City Airport"></div>
+              </div>
+              <button class="big-btn" onclick="goEstimate()">Get fare estimate</button>
+
+              <div class="section-label">Recent</div>
+              <div class="history-item">
+                <div class="history-top"><span>Home → Tech Park</span><span>₹186</span></div>
+                <div class="history-route">Yesterday, 6:42 PM</div>
+              </div>
+              <div class="history-item">
+                <div class="history-top"><span>Cafe Row → City Mall</span><span>₹94</span></div>
+                <div class="history-route">Mon, 1:05 PM</div>
+              </div>
+            </div>
+
+            <div class="screen" data-screen="estimate">
+              <div class="section-label">Choose a ride</div>
+              <div id="rideOptions"></div>
+              <button class="big-btn" id="bookBtn" onclick="goFinding()" disabled>Confirm booking</button>
+              <button class="big-btn ghost-line" onclick="showScreen('home')">Back</button>
+            </div>
+
+            <div class="screen" data-screen="finding">
+              <div class="center-pad">
+                <div class="spinner"></div>
+                <h3>Finding your driver</h3>
+                <p>Matching you with a nearby car…</p>
+              </div>
+            </div>
+
+            <div class="screen" data-screen="matched">
+              <div class="section-label">Driver assigned</div>
+              <div class="driver-card">
+                <div class="avatar" id="driverInitial">A</div>
+                <div>
+                  <div class="driver-name" id="driverName">Arjun Mehta</div>
+                  <div class="driver-sub" id="driverCar">White Swift · KA 05 AB 4521</div>
+                </div>
+                <div class="driver-rating"><b id="driverRating">4.8★</b><span>1,204 rides</span></div>
+              </div>
+              <button class="big-btn" onclick="goTracking()">Track driver</button>
+            </div>
+
+            <div class="screen" data-screen="tracking">
+              <div class="section-label">On the way</div>
+              <div class="map-box">
+                <svg class="map-svg" viewBox="0 0 300 190" id="mapSvg">
+                  <rect width="300" height="190" fill="#171B22"/>
+                  <rect x="20" y="20" width="40" height="36" rx="4" fill="#1F2530"/>
+                  <rect x="230" y="30" width="46" height="30" rx="4" fill="#1F2530"/>
+                  <rect x="24" y="120" width="50" height="40" rx="4" fill="#1F2530"/>
+                  <rect x="200" y="130" width="60" height="34" rx="4" fill="#1F2530"/>
+                  <path id="routePath" d="M 34 150 C 90 150, 90 60, 150 60 S 230 30, 270 40" fill="none" stroke="#2A3140" stroke-width="6" stroke-linecap="round"/>
+                  <path id="routeDone" d="M 34 150 C 90 150, 90 60, 150 60 S 230 30, 270 40" fill="none" stroke="#FFC53D" stroke-width="6" stroke-linecap="round" stroke-dasharray="400" stroke-dashoffset="400"/>
+                  <circle cx="34" cy="150" r="6" fill="#34D399"/>
+                  <circle cx="270" cy="40" r="6" fill="#FFC53D"/>
+                  <g id="carDot"><circle r="7" fill="#F5F6F8"/><circle r="3" fill="#0E1116"/></g>
+                </svg>
+                <div class="map-caption"><span>Distance left: <b id="distLeft">4.6 km</b></span><span>ETA: <b id="etaLeft">9 min</b></span></div>
+              </div>
+              <div class="progress-track"><div class="progress-fill" id="progFill"></div></div>
+              <button class="big-btn" id="arriveBtn" onclick="goPayment()" disabled>Waiting for arrival…</button>
+            </div>
+
+            <div class="screen" data-screen="payment">
+              <div class="section-label">Trip summary</div>
+              <div class="fare-row"><span>Base fare</span><span id="fBase">₹40</span></div>
+              <div class="fare-row"><span>Distance (<span id="fDist">6.2</span> km)</span><span id="fDistCost">₹124</span></div>
+              <div class="fare-row"><span>Platform fee</span><span>₹8</span></div>
+              <div class="fare-row total"><span>Total</span><span id="fTotal">₹172</span></div>
+              <div class="section-label">Pay with</div>
+              <div class="pay-methods">
+                <div class="pay-chip selected" data-pay="upi" onclick="selectPay(this)">UPI</div>
+                <div class="pay-chip" data-pay="card" onclick="selectPay(this)">Card</div>
+                <div class="pay-chip" data-pay="wallet" onclick="selectPay(this)">Wallet</div>
+              </div>
+              <button class="big-btn" onclick="goRate()">Pay now</button>
+            </div>
+
+            <div class="screen" data-screen="rate">
+              <div class="center-pad" style="padding-top:26px;">
+                <h3>Rate your ride with <span id="rateDriverName">Arjun</span></h3>
+                <div class="stars" id="starRow">
+                  <span class="star" data-v="1">★</span><span class="star" data-v="2">★</span><span class="star" data-v="3">★</span><span class="star" data-v="4">★</span><span class="star" data-v="5">★</span>
+                </div>
+                <textarea class="feedback" rows="2" placeholder="Add a comment (optional)"></textarea>
+                <button class="big-btn" onclick="submitRating()">Submit rating</button>
+              </div>
+            </div>
+
+            <div class="screen" data-screen="history">
+              <div class="section-label">Ride history</div>
+              <div id="historyList"></div>
+            </div>
+
+          </div>
+
+          <div class="tabbar">
+            <button class="tab active" data-tab="home" onclick="showScreen('home')"><span class="ticon">⌂</span>Home</button>
+            <button class="tab" data-tab="tracking" onclick="jumpTracking()"><span class="ticon">◎</span>Track</button>
+            <button class="tab" data-tab="history" onclick="showHistory()"><span class="ticon">≡</span>History</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features" id="features">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Everything a rider needs, nothing they don't</h2>
+      <p>Five core modules make up the experience — each one demonstrated in the flow above.</p>
+    </div>
+    <div class="feature-grid">
+      <div class="feature-card"><div class="ic">₹</div><h3>Fare estimation</h3><p>Live pricing based on distance and vehicle tier, shown before the rider commits to a booking.</p></div>
+      <div class="feature-card"><div class="ic">◎</div><h3>Live driver tracking</h3><p>An animated route shows the driver's position, remaining distance and ETA in real time.</p></div>
+      <div class="feature-card"><div class="ic">✓</div><h3>Digital payments</h3><p>UPI, card or wallet — a clear fare breakdown before the rider pays.</p></div>
+      <div class="feature-card"><div class="ic">★</div><h3>Two-way ratings</h3><p>Riders rate drivers after every trip, keeping quality visible across the network.</p></div>
+      <div class="feature-card"><div class="ic">≡</div><h3>Ride history</h3><p>Every past trip logged with route, fare and the rating given — searchable at a glance.</p></div>
+      <div class="feature-card"><div class="ic">◈</div><h3>Multiple ride tiers</h3><p>Economy, Comfort and Pool options let riders trade off price against speed and privacy.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="flow" id="flow">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>How a ride flows through the system</h2>
+    </div>
+    <div class="flow-steps">
+      <div class="flow-step"><div class="n">01</div><h4>Request</h4><p>Rider enters pickup and drop points; the system estimates fare and ETA.</p></div>
+      <div class="flow-step"><div class="n">02</div><h4>Match</h4><p>The nearest available driver is assigned and shares live location.</p></div>
+      <div class="flow-step"><div class="n">03</div><h4>Trip</h4><p>Rider tracks the car on the map until pickup, then through to the destination.</p></div>
+      <div class="flow-step"><div class="n">04</div><h4>Close-out</h4><p>Payment is settled digitally, and both parties rate the trip.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="stack" id="stack">
+  <div class="wrap">
+    <div class="section-head">
+      <h2>Built with</h2>
+      <p>A dependency-free front end — this entire prototype is one HTML file.</p>
+    </div>
+    <div class="stack-row">
+      <span class="chip">HTML5</span>
+      <span class="chip">CSS3 (Grid + Flexbox)</span>
+      <span class="chip">Vanilla JavaScript</span>
+      <span class="chip">Inline SVG map rendering</span>
+      <span class="chip">No frameworks, no backend</span>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>Roame — academic project prototype</span>
+    <span>Faculty demo build</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
