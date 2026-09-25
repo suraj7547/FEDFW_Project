@@ -1,0 +1,1020 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>RideShare - Your Ride, Your Way</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <!-- ================= NAVBAR ================= -->
+
+    <header class="navbar">
+
+        <div class="container nav-content">
+
+            <a href="#" class="logo" onclick="showPage('home')">
+                <span class="logo-icon">R</span>
+                <span>Ride<span class="logo-highlight">Share</span></span>
+            </a>
+
+            <nav class="nav-links">
+
+                <a href="#" onclick="showPage('home')">Home</a>
+
+                <a href="#" onclick="showPage('book')">Book Ride</a>
+
+                <a href="#" onclick="showPage('history')">Ride History</a>
+
+                <a href="#" onclick="showPage('driver')">Drive With Us</a>
+
+            </nav>
+
+            <div class="nav-actions">
+
+                <button class="btn btn-outline" id="loginBtn" onclick="openAuthModal('login')">
+                    Login
+                </button>
+
+                <button class="btn btn-primary" id="registerBtn" onclick="openAuthModal('register')">
+                    Sign Up
+                </button>
+
+                <div class="user-menu hidden" id="userMenu">
+
+                    <button class="user-avatar" onclick="toggleUserDropdown()">
+                        <span id="userInitial">U</span>
+                    </button>
+
+                    <div class="user-dropdown" id="userDropdown">
+
+                        <div class="dropdown-user">
+                            <strong id="dropdownName">User</strong>
+                            <span id="dropdownEmail">user@email.com</span>
+                        </div>
+
+                        <hr>
+
+                        <a href="#" onclick="showPage('profile')">
+                            👤 Profile
+                        </a>
+
+                        <a href="#" onclick="showPage('history')">
+                            🕘 Ride History
+                        </a>
+
+                        <a href="#" onclick="logout()">
+                            🚪 Logout
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- ================= HOME PAGE ================= -->
+
+    <main id="homePage" class="page">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div class="container hero-content">
+
+                <div class="hero-text">
+
+                    <span class="badge">
+                        🚗 Safe • Fast • Affordable
+                    </span>
+
+                    <h1>
+                        Your journey,
+                        <span>our priority.</span>
+                    </h1>
+
+                    <p>
+                        Book a comfortable ride in seconds.
+                        Connect with trusted drivers and travel
+                        anywhere with ease.
+                    </p>
+
+                    <div class="hero-buttons">
+
+                        <button class="btn btn-primary btn-large" onclick="showPage('book')">
+                            Book a Ride →
+                        </button>
+
+                        <button class="btn btn-outline btn-large" onclick="showPage('driver')">
+                            Become a Driver
+                        </button>
+
+                    </div>
+
+                    <div class="hero-stats">
+
+                        <div>
+                            <strong>10K+</strong>
+                            <span>Rides Completed</span>
+                        </div>
+
+                        <div>
+                            <strong>5K+</strong>
+                            <span>Happy Users</span>
+                        </div>
+
+                        <div>
+                            <strong>4.8★</strong>
+                            <span>Average Rating</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- BOOKING CARD -->
+
+                <div class="quick-book-card">
+
+                    <div class="card-header">
+
+                        <div>
+                            <span class="small-label">QUICK BOOK</span>
+                            <h2>Where are you going?</h2>
+                        </div>
+
+                        <div class="location-icon">📍</div>
+
+                    </div>
+
+                    <div class="location-inputs">
+
+                        <div class="input-group location-input">
+
+                            <span class="input-icon pickup-dot"></span>
+
+                            <div>
+                                <label>Pickup location</label>
+
+                                <input type="text" id="homePickup" placeholder="Enter pickup location">
+                            </div>
+
+                        </div>
+
+                        <div class="route-line"></div>
+
+                        <div class="input-group location-input">
+
+                            <span class="input-icon destination-dot"></span>
+
+                            <div>
+                                <label>Destination</label>
+
+                                <input type="text" id="homeDestination" placeholder="Where to?">
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <button class="btn btn-primary full-width" onclick="quickBook()">
+                        Get Fare Estimate
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- FEATURES -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">WHY RIDESHARE?</span>
+
+                    <h2>Everything you need for a better ride</h2>
+
+                    <p>
+                        Simple, reliable and affordable transportation
+                        at your fingertips.
+                    </p>
+
+                </div>
+
+
+                <div class="features-grid">
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">⚡</div>
+
+                        <h3>Quick Booking</h3>
+
+                        <p>
+                            Book your ride in just a few clicks
+                            and get moving quickly.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">🛡️</div>
+
+                        <h3>Safe & Reliable</h3>
+
+                        <p>
+                            Travel with verified drivers and
+                            reliable ride services.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">💰</div>
+
+                        <h3>Affordable Fares</h3>
+
+                        <p>
+                            Transparent pricing with no
+                            hidden charges.
+                        </p>
+
+                    </div>
+
+
+                    <div class="feature-card">
+
+                        <div class="feature-icon">📍</div>
+
+                        <h3>Track Your Ride</h3>
+
+                        <p>
+                            Stay updated with your ride status
+                            from booking to destination.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- RIDE TYPES -->
+
+        <section class="section rides-section">
+
+            <div class="container">
+
+                <div class="section-heading">
+
+                    <span class="section-label">CHOOSE YOUR RIDE</span>
+
+                    <h2>Ride your way</h2>
+
+                </div>
+
+
+                <div class="ride-types">
+
+                    <div class="ride-type-card">
+
+                        <div class="ride-image car">🚗</div>
+
+                        <div>
+
+                            <h3>RideShare Go</h3>
+
+                            <p>Affordable everyday rides</p>
+
+                            <strong>From ₹49</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="ride-type-card">
+
+                        <div class="ride-image premium">🚘</div>
+
+                        <div>
+
+                            <h3>RideShare Premium</h3>
+
+                            <p>Comfortable premium rides</p>
+
+                            <strong>From ₹99</strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="ride-type-card">
+
+                        <div class="ride-image bike">🏍️</div>
+
+                        <div>
+
+                            <h3>RideShare Bike</h3>
+
+                            <p>Fast and economical</p>
+
+                            <strong>From ₹29</strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- ================= BOOK RIDE PAGE ================= -->
+
+    <section id="bookPage" class="page hidden">
+
+        <div class="container page-container">
+
+            <div class="page-heading">
+
+                <span class="section-label">BOOK A RIDE</span>
+
+                <h1>Plan your journey</h1>
+
+                <p>
+                    Enter your pickup and destination to find
+                    the best ride for you.
+                </p>
+
+            </div>
+
+
+            <div class="booking-layout">
+
+                <!-- BOOKING FORM -->
+
+                <div class="booking-card">
+
+                    <h2>Where are you going?</h2>
+
+                    <div class="form-group">
+
+                        <label>Pickup Location</label>
+
+                        <div class="input-with-icon">
+
+                            <span>📍</span>
+
+                            <input type="text" id="pickup" placeholder="Enter pickup location">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Destination</label>
+
+                        <div class="input-with-icon">
+
+                            <span>📌</span>
+
+                            <input type="text" id="destination" placeholder="Enter destination">
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+
+                        <label>Ride Type</label>
+
+                        <div class="ride-options">
+
+                            <label class="ride-option">
+
+                                <input type="radio" name="rideType" value="Bike" data-base="29" checked>
+
+                                <div class="ride-option-content">
+
+                                    <span class="ride-option-icon">🏍️</span>
+
+                                    <div>
+                                        <strong>Bike</strong>
+                                        <small>From ₹29</small>
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+
+                            <label class="ride-option">
+
+                                <input type="radio" name="rideType" value="Go" data-base="49">
+
+                                <div class="ride-option-content">
+
+                                    <span class="ride-option-icon">🚗</span>
+
+                                    <div>
+                                        <strong>Go</strong>
+                                        <small>From ₹49</small>
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+
+                            <label class="ride-option">
+
+                                <input type="radio" name="rideType" value="Premium" data-base="99">
+
+                                <div class="ride-option-content">
+
+                                    <span class="ride-option-icon">🚘</span>
+
+                                    <div>
+                                        <strong>Premium</strong>
+                                        <small>From ₹99</small>
+                                    </div>
+
+                                </div>
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+
+                    <button class="btn btn-primary full-width btn-large" onclick="calculateFare()">
+                        Calculate Fare
+                    </button>
+
+                </div>
+
+
+                <!-- FARE RESULT -->
+
+                <div class="fare-card" id="fareCard">
+
+                    <div class="fare-empty">
+
+                        <div class="fare-empty-icon">🚕</div>
+
+                        <h3>Your fare estimate</h3>
+
+                        <p>
+                            Enter your locations and select
+                            a ride type to see the estimated fare.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= RIDE CONFIRMATION ================= -->
+
+    <section id="ridePage" class="page hidden">
+
+        <div class="container page-container">
+
+            <div class="ride-status-card">
+
+                <div class="status-icon" id="rideStatusIcon">
+                    🔍
+                </div>
+
+                <span class="section-label" id="rideStatusLabel">
+                    SEARCHING
+                </span>
+
+                <h1 id="rideStatusTitle">
+                    Finding your driver...
+                </h1>
+
+                <p id="rideStatusText">
+                    Please wait while we connect you
+                    with a nearby driver.
+                </p>
+
+
+                <div class="driver-card hidden" id="driverCard">
+
+                    <div class="driver-avatar">
+                        👨
+                    </div>
+
+                    <div class="driver-info">
+
+                        <h3 id="driverName">
+                            Rahul Sharma
+                        </h3>
+
+                        <div class="driver-rating">
+                            ⭐ 4.8
+                        </div>
+
+                        <p id="driverVehicle">
+                            White Swift • DL 01 AB 1234
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ride-route">
+
+                    <div class="route-location">
+
+                        <span class="pickup-dot"></span>
+
+                        <div>
+                            <small>Pickup</small>
+                            <strong id="ridePickup">-</strong>
+                        </div>
+
+                    </div>
+
+                    <div class="route-divider"></div>
+
+                    <div class="route-location">
+
+                        <span class="destination-dot"></span>
+
+                        <div>
+                            <small>Destination</small>
+                            <strong id="rideDestination">-</strong>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="ride-price">
+
+                    <span>Estimated Fare</span>
+
+                    <strong id="rideFare">₹0</strong>
+
+                </div>
+
+
+                <button class="btn btn-danger" onclick="cancelRide()">
+                    Cancel Ride
+                </button>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= HISTORY PAGE ================= -->
+
+    <section id="historyPage" class="page hidden">
+
+        <div class="container page-container">
+
+            <div class="page-heading">
+
+                <span class="section-label">YOUR RIDES</span>
+
+                <h1>Ride History</h1>
+
+                <p>
+                    View your previous rides and payments.
+                </p>
+
+            </div>
+
+
+            <div id="historyList" class="history-list">
+
+                <!-- JavaScript will insert rides here -->
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= DRIVER PAGE ================= -->
+
+    <section id="driverPage" class="page hidden">
+
+        <div class="container page-container">
+
+            <div class="driver-hero">
+
+                <div>
+
+                    <span class="section-label">
+                        DRIVE WITH RIDESHARE
+                    </span>
+
+                    <h1>Drive when you want.<br>Earn what you need.</h1>
+
+                    <p>
+                        Become a RideShare driver and earn money
+                        on your own schedule.
+                    </p>
+
+                    <button class="btn btn-primary btn-large" onclick="startDriverRegistration()">
+                        Become a Driver
+                    </button>
+
+                </div>
+
+                <div class="driver-hero-icon">
+                    🚗
+                </div>
+
+            </div>
+
+
+            <div class="driver-benefits">
+
+                <div class="benefit-card">
+
+                    <span>💰</span>
+
+                    <h3>Earn More</h3>
+
+                    <p>
+                        Earn competitive fares for every trip.
+                    </p>
+
+                </div>
+
+
+                <div class="benefit-card">
+
+                    <span>🕐</span>
+
+                    <h3>Flexible Hours</h3>
+
+                    <p>
+                        Drive whenever it works for you.
+                    </p>
+
+                </div>
+
+
+                <div class="benefit-card">
+
+                    <span>📱</span>
+
+                    <h3>Easy Management</h3>
+
+                    <p>
+                        Manage your rides from one place.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="driver-dashboard hidden" id="driverDashboard">
+
+                <h2>Driver Dashboard</h2>
+
+                <div class="dashboard-stats">
+
+                    <div>
+                        <span>Total Rides</span>
+                        <strong id="driverRides">0</strong>
+                    </div>
+
+                    <div>
+                        <span>Total Earnings</span>
+                        <strong id="driverEarnings">₹0</strong>
+                    </div>
+
+                    <div>
+                        <span>Rating</span>
+                        <strong>⭐ 5.0</strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PROFILE PAGE ================= -->
+
+    <section id="profilePage" class="page hidden">
+
+        <div class="container page-container">
+
+            <div class="page-heading">
+
+                <span class="section-label">ACCOUNT</span>
+
+                <h1>Your Profile</h1>
+
+            </div>
+
+
+            <div class="profile-card">
+
+                <div class="profile-avatar" id="profileAvatar">
+                    U
+                </div>
+
+                <div class="profile-details">
+
+                    <h2 id="profileName">User</h2>
+
+                    <p id="profileEmail">user@email.com</p>
+
+                    <div class="profile-stats">
+
+                        <div>
+                            <strong id="profileRides">0</strong>
+                            <span>Rides</span>
+                        </div>
+
+                        <div>
+                            <strong>⭐ 5.0</strong>
+                            <span>Rating</span>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= AUTH MODAL ================= -->
+
+    <div class="modal-overlay hidden" id="authModal">
+
+        <div class="modal">
+
+            <button class="modal-close" onclick="closeAuthModal()">
+                ×
+            </button>
+
+
+            <!-- LOGIN -->
+
+            <div id="loginForm">
+
+                <div class="modal-heading">
+
+                    <div class="modal-logo">R</div>
+
+                    <h2>Welcome back</h2>
+
+                    <p>Login to continue your journey.</p>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input type="email" id="loginEmail" placeholder="Enter your email">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input type="password" id="loginPassword" placeholder="Enter your password">
+
+                </div>
+
+
+                <button class="btn btn-primary full-width" onclick="login()">
+                    Login
+                </button>
+
+
+                <p class="auth-switch">
+
+                    Don't have an account?
+
+                    <button onclick="switchAuth('register')">
+                        Sign Up
+                    </button>
+
+                </p>
+
+            </div>
+
+
+            <!-- REGISTER -->
+
+            <div id="registerForm" class="hidden">
+
+                <div class="modal-heading">
+
+                    <div class="modal-logo">R</div>
+
+                    <h2>Create account</h2>
+
+                    <p>Join RideShare today.</p>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Full Name</label>
+
+                    <input type="text" id="registerName" placeholder="Enter your name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input type="email" id="registerEmail" placeholder="Enter your email">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input type="password" id="registerPassword" placeholder="Create a password">
+
+                </div>
+
+
+                <button class="btn btn-primary full-width" onclick="register()">
+                    Create Account
+                </button>
+
+
+                <p class="auth-switch">
+
+                    Already have an account?
+
+                    <button onclick="switchAuth('login')">
+                        Login
+                    </button>
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ================= TOAST ================= -->
+
+    <div id="toast" class="toast">
+        <span id="toastMessage"></span>
+    </div>
+
+
+    <!-- ================= FOOTER ================= -->
+
+    <footer class="footer">
+
+        <div class="container">
+
+            <div class="footer-content">
+
+                <div>
+
+                    <div class="logo footer-logo">
+
+                        <span class="logo-icon">R</span>
+
+                        <span>
+                            Ride<span class="logo-highlight">Share</span>
+                        </span>
+
+                    </div>
+
+                    <p>
+                        Making everyday travel simple,
+                        safe and affordable.
+                    </p>
+
+                </div>
+
+
+                <div class="footer-links">
+
+                    <div>
+
+                        <h4>Company</h4>
+
+                        <a href="#">About</a>
+
+                        <a href="#">Careers</a>
+
+                        <a href="#">Contact</a>
+
+                    </div>
+
+
+                    <div>
+
+                        <h4>Support</h4>
+
+                        <a href="#">Help Center</a>
+
+                        <a href="#">Safety</a>
+
+                        <a href="#">Terms</a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="footer-bottom">
+
+                <span>© 2026 RideShare. College Project.</span>
+
+                <span>Made with HTML, CSS & JavaScript</span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
